@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  service_1:
+    build: ./service_1/.
+    ports:
+      - '8080:8080'
+    restart: always
+  service_2:
+    build: ./service_2/.
+    environment:
+      - MONGO_URI=mongodb://localhost:27017
+    ports:
+      - '9090:9090'
+    depends_on:
+      - mongodb
+    restart: always
+    networks:
+      - mynet
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+    networks:
+      - mynet
+networks:
+  mynet:
+
