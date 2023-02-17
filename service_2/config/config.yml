@@ -1,4 +1,4 @@
 http:
-  port: '9090'
+  port: "9090"
 mongodb:
-  URL: 'mongodb://localhost:27017'
+  URL: "mongodb://172.1.23.14:27017"

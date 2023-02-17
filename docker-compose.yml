@@ -4,19 +4,23 @@ services:
   service_1:
     build: ./service_1/.
     ports:
-      - '8080:8080'
+      - "8080:8080"
     restart: always
+    networks:
+      mynet:
+        ipv4_address: 172.1.23.12
   service_2:
     build: ./service_2/.
     environment:
-      - MONGO_URI=mongodb://localhost:27017
+      - MONGO_URI=mongodb://172.1.23.14:27017
     ports:
-      - '9090:9090'
+      - "9090:9090"
     depends_on:
       - mongodb
     restart: always
     networks:
-      - mynet
+      mynet:
+        ipv4_address: 172.1.23.13
   mongodb:
     image: mongo
     container_name: mongodb
@@ -26,7 +30,11 @@ services:
     volumes:
       - ./data:/data/db
     networks:
-      - mynet
+      mynet:
+        ipv4_address: 172.1.23.14
 networks:
   mynet:
-
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.1.23.0/24"

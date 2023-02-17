@@ -1,15 +1,15 @@
 package usecase
 
 import (
-	"service_2/internal/models"
-	"service_2/internal/usecase/utils"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"os"
+	"service_2/internal/models"
+	"service_2/internal/usecase/utils"
 )
 
-var postURL = "http://localhost:8080/generate-salt"
+var postURL = "http://172.1.23.12:8080/generate-salt"
 
 type User struct {
 	repo CreateAndRead
